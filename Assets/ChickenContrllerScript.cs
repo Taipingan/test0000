@@ -8,6 +8,7 @@ public class ChickenContrllerScript : MonoBehaviour
     public float pX;
     public float pY;
     public float pZ;
+    public float Distanciing;
     public Animator AnimatorScript;
     public bool isFence;
     public bool isShock;
@@ -26,7 +27,7 @@ public class ChickenContrllerScript : MonoBehaviour
     void Update()
     {
         fixPosition();
-        float Distanciing = ToPlayerDistanciing();
+        Distanciing = ToPlayerDistanciing();
         if (Distanciing <= 3)
         {
             // turnRight();
@@ -187,9 +188,17 @@ public class ChickenContrllerScript : MonoBehaviour
     float ToPlayerDistanciing()
     {
         Vector3 thistank;
-        thistank = this.transform.position - player.transform.position;
+
+        if(player == null)
+        {
+            return 4;
+        }
+        else
+        {
+            thistank = this.transform.position - player.transform.position;
+            return thistank.magnitude;
+        }
         //Debug.Log(thistank.magnitude);
-        return thistank.magnitude;
     }
     void turnRight()
     {
